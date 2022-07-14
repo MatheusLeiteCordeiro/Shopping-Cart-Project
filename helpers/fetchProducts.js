@@ -6,14 +6,10 @@ const fetchProducts = async (toSearchItem) => {
 
   const request = await fetch(searchEndPoint);
   const json = await request.json();
-  
-    if (toSearchItem === undefined) {
-      return new Error('You must provide an url');
-    }
 
    return json;
   } catch (error) {
-    return error;
+    return new Error('You must provide an url');
   }
 };
 

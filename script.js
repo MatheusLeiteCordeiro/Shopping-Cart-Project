@@ -32,8 +32,11 @@ const createProductListing = async () => {
     const arrayResults = apiReturn.results;
 
     arrayResults.map((objeto) => {
-        const { id, title, thumbnail } = objeto;
-        const item = createProductItemElement({ id, title, thumbnail });
+        const sku = objeto.id;
+        const name = objeto.title;
+        const image = objeto.thumbnail;
+
+        const item = createProductItemElement({ sku, name, image });
 
         return section.appendChild(item);
     });
