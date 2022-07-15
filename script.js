@@ -1,4 +1,5 @@
 // const { fetchProducts } = require("./helpers/fetchProducts");
+// const { fetchItem } = require("./helpers/fetchItem");
 
 const createProductImageElement = (imageSource) => {
   const img = document.createElement('img');
@@ -19,8 +20,8 @@ const createProductItemElement = ({ sku, name, image }) => {
   section.className = 'item';
 
   section.appendChild(createCustomElement('span', 'item__sku', sku));
-  section.appendChild(createCustomElement('span', 'item__title', name));
   section.appendChild(createProductImageElement(image));
+  section.appendChild(createCustomElement('span', 'item__title', name));
   section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'));
 
   return section;
@@ -48,14 +49,30 @@ const createProductListing = async () => {
 //   // coloque seu código aqui
 // };
 
-// const createCartItemElement = ({ sku, name, salePrice }) => {
-//   const li = document.createElement('li');
-//   li.className = 'cart__item';
-//   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
-//   li.addEventListener('click', cartItemClickListener);
-//   return li;
-// };
+const createCartItemElement = ({ sku, name, salePrice }) => {
+  const li = document.createElement('li');
+  li.className = 'cart__item';
+  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
+  // li.addEventListener('click', cartItemClickListener);
+  return li;
+};
+
+const addItemToCart = async () => {
+  const apiReturn = await fetchItem('MLB1615760527');
+
+  const sku = apiReturn.id;
+  const name = apiReturn.title;
+  const salePrice = apiReturn.price;
+
+  const item = createCartItemElement({ sku, name, salePrice });
+  const cartItems = document.querySelector('.cart__items');
+
+  cartItems.appendChild(item);
+
+  console.log(sku, name, salePrice);
+};
 
 window.onload = () => { 
     createProductListing();
+    addItemToCart();
  };
