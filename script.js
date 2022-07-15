@@ -41,14 +41,11 @@ const createProductListing = async () => {
 
 // const getSkuFromProductItem = (item) => item.querySelector('span.item__sku').innerText;
 
-const cartItemClickListener = () => {
+const cartItemClickListener = (event) => {
   // coloque seu código aqui
   const item = document.querySelectorAll('.cart__item');
-  item.forEach((element) => {
-    element.addEventListener('click', (event) => {
-      // eslint-disable-next-line no-restricted-globals
+  item.forEach(() => {
       event.target.remove();
-    });
   });
 };
 
@@ -78,7 +75,6 @@ const buttonListener = () => {
 
   button.forEach((element) => {
   element.addEventListener('click', (event) => {
-    // eslint-disable-next-line no-restricted-globals
     addItemToCart((event.target.parentNode.firstChild.innerText));
   });
 });
@@ -86,6 +82,6 @@ const buttonListener = () => {
 
 window.onload = async () => { 
     await createProductListing();
-    buttonListener();
-    cartItemClickListener();
+     buttonListener();
+     cartItemClickListener();
  };
