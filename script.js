@@ -32,11 +32,7 @@ const createProductListing = async () => {
     const apiReturn = await fetchProducts('computador');
     const arrayResults = apiReturn.results;
 
-    arrayResults.map((objeto) => {
-        const sku = objeto.id;
-        const name = objeto.title;
-        const image = objeto.thumbnail;
-
+    arrayResults.map(({ id: sku, title: name, thumbnail: image }) => {
         const item = createProductItemElement({ sku, name, image });
 
         return section.appendChild(item);
@@ -45,21 +41,21 @@ const createProductListing = async () => {
 
 // const getSkuFromProductItem = (item) => item.querySelector('span.item__sku').innerText;
 
-// const cartItemClickListener = (event) => {
-//   // coloque seu código aqui
-// };
+const cartItemClickListener = () => {
+  // coloque seu código aqui
+};
 
 const createCartItemElement = ({ sku, name, salePrice }) => {
   const li = document.createElement('li');
   li.className = 'cart__item';
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
-  // li.addEventListener('click', cartItemClickListener);
+  li.addEventListener('click', cartItemClickListener);
   return li;
 };
 
-const addItemToCart = async () => {
-  const apiReturn = await fetchItem('MLB1615760527');
-
+const addItemToCart = async (itemId) => {
+  const apiReturn = await fetchItem(itemId);
+  
   const sku = apiReturn.id;
   const name = apiReturn.title;
   const salePrice = apiReturn.price;
@@ -68,11 +64,20 @@ const addItemToCart = async () => {
   const cartItems = document.querySelector('.cart__items');
 
   cartItems.appendChild(item);
-
-  console.log(sku, name, salePrice);
 };
 
-window.onload = () => { 
-    createProductListing();
-    addItemToCart();
+const buttonListener = () => {
+  const button = document.querySelectorAll('.item__add');
+
+button.forEach((element) => {
+  element.addEventListener('click', () => {
+    // eslint-disable-next-line no-restricted-globals
+    addItemToCart((event.target.parentNode.firstChild.innerText));
+  });
+});
+};
+
+window.onload = async () => { 
+    await createProductListing();
+    buttonListener();
  };
