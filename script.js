@@ -43,6 +43,13 @@ const createProductListing = async () => {
 
 const cartItemClickListener = () => {
   // coloque seu código aqui
+  const item = document.querySelectorAll('.cart__item');
+  item.forEach((element) => {
+    element.addEventListener('click', () => {
+      // eslint-disable-next-line no-restricted-globals
+      event.target.remove();
+    });
+  });
 };
 
 const createCartItemElement = ({ sku, name, salePrice }) => {
@@ -69,7 +76,7 @@ const addItemToCart = async (itemId) => {
 const buttonListener = () => {
   const button = document.querySelectorAll('.item__add');
 
-button.forEach((element) => {
+  button.forEach((element) => {
   element.addEventListener('click', () => {
     // eslint-disable-next-line no-restricted-globals
     addItemToCart((event.target.parentNode.firstChild.innerText));
@@ -80,4 +87,5 @@ button.forEach((element) => {
 window.onload = async () => { 
     await createProductListing();
     buttonListener();
+    cartItemClickListener();
  };
