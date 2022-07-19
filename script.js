@@ -1,5 +1,8 @@
 // const { fetchProducts } = require("./helpers/fetchProducts");
 // const { fetchItem } = require("./helpers/fetchItem");
+// const saveCartItems = require("./helpers/saveCartItems");
+
+const cartItems = document.querySelector('.cart__items');
 
 const createProductImageElement = (imageSource) => {
   const img = document.createElement('img');
@@ -43,10 +46,8 @@ const createProductListing = async () => {
 
 const cartItemClickListener = (event) => {
   // coloque seu código aqui
-  const item = document.querySelectorAll('.cart__item');
-  item.forEach(() => {
-      event.target.remove();
-  });
+    event.target.remove();
+    saveCartItems(cartItems.innerHTML);
 };
 
 const createCartItemElement = ({ sku, name, salePrice }) => {
@@ -59,18 +60,32 @@ const createCartItemElement = ({ sku, name, salePrice }) => {
 
 const addItemToCart = async (itemId) => {
   const apiReturn = await fetchItem(itemId);
-  
-  const sku = apiReturn.id;
-  const name = apiReturn.title;
-  const salePrice = apiReturn.price;
 
-  const item = createCartItemElement({ sku, name, salePrice });
-  const cartItems = document.querySelector('.cart__items');
+  const objectItemCart = {
+    sku: apiReturn.id,
+    name: apiReturn.title,
+    salePrice: apiReturn.price,
+  };
 
-  cartItems.appendChild(item);
+  const cartItem = createCartItemElement(objectItemCart);
+
+  cartItems.appendChild(cartItem);
+
+  saveCartItems(cartItems.innerHTML);
 };
 
-const buttonListener = () => {
+const reloadCart = () => {
+    cartItems.innerHTML = getSavedCartItems();
+
+    const item = document.querySelectorAll('.cart__item');
+    item.forEach((element) => {
+      element.addEventListener('click', cartItemClickListener);
+    });
+};
+
+const setItemsToCart = () => {
+  reloadCart();
+
   const button = document.querySelectorAll('.item__add');
 
   button.forEach((element) => {
@@ -82,6 +97,5 @@ const buttonListener = () => {
 
 window.onload = async () => { 
     await createProductListing();
-     buttonListener();
-     cartItemClickListener();
- };
+    setItemsToCart();
+};
