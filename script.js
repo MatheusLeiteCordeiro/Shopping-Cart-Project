@@ -60,7 +60,6 @@ const createCartItemElement = ({ sku, name, salePrice }) => {
 
 const addItemToCart = async (itemId) => {
   const apiReturn = await fetchItem(itemId);
-
   const objectItemCart = {
     sku: apiReturn.id,
     name: apiReturn.title,
@@ -95,7 +94,17 @@ const setItemsToCart = () => {
 });
 };
 
+const emptyCart = () => {
+  const emptyCartButton = document.querySelector('.empty-cart');
+
+  emptyCartButton.addEventListener('click', () => {
+    cartItems.innerHTML = '';
+    saveCartItems(cartItems.innerHTML);
+  });
+};
+
 window.onload = async () => { 
     await createProductListing();
     setItemsToCart();
+    emptyCart();
 };
