@@ -57,7 +57,7 @@ const mapFetchItems = (arrayResults) => {
 const createProductListing = async () => {
     showLoading(sectionItems);
 
-    const apiReturn = await fetchProducts('sadasd');
+    const apiReturn = await fetchProducts('computador');
     const arrayResults = apiReturn.results;
 
     mapFetchItems(arrayResults);
