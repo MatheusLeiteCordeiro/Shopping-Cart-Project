@@ -33,24 +33,21 @@ const createProductItemElement = ({ sku, name, image, price }) => {
   return section;
 };
 
-// const calculateTotalPrice = () => {
-//   const totalPrice = document.querySelector('.total-price');
-//   const items = document.querySelectorAll('.cart__items');
+const calculateTotalPrice = () => {
+  const totalPrice = document.querySelector('.total-price');
+  const items = document.querySelectorAll('.cart__item');
 
-//   valorInicialPrice = 0;
+  valorInicialPrice = 0;
 
-//   items.forEach(async (element) => {
-//     const cartItemData = await fetchItem(element.firstChild.firstChild.innerText);
-//     const { price } = cartItemData;
-//     const valorTotalPrice = valorInicialPrice + price;
+  items.forEach(async (element) => {
+    const cartItemData = await fetchItem(element.lastChild.innerText);
+    const { price } = cartItemData;
 
-//     totalPrice.innerHTML = valorTotalPrice;
-//     // for (let i=0; i<element.childElementCount; i++) {
+    // totalPrice.innerHTML = valorTotalPrice;
 
-//     // }
-//     // console.log(element.childElementCount);
-//   });
-// };
+      // console.log(price);
+  });
+};
 
 const showLoading = (section) => {
   const loadingTextElement = document.createElement('p');
@@ -120,11 +117,11 @@ const cartItemClickListener = (event) => {
 
 const createCartItemElement = ({ sku, name, salePrice }) => {
   const li = document.createElement('li');
-  // const textP = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
+  const textP = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
 
-  // li.appendChild(createCustomElement('span', 'cartItemSpan', sku));
   // li.appendChild(createCustomElement('p', 'pItemCart', textP));
-  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
+  li.innerText = textP;
+  li.appendChild(createCustomElement('span', 'cartItemSpan', sku));
   li.className = 'cart__item';
   li.addEventListener('click', cartItemClickListener);
   return li;
@@ -145,19 +142,23 @@ const createCartItemStylizedElement = ({ title, price, thumbnail }) => {
 
 const addItemToCart = async (itemId) => {
   const apiReturn = await fetchItem(itemId);
-  const objectItemCart = {
-    // sku: apiReturn.id,
+
+  // const objectItemCart = {
+  //   sku: apiReturn.id,
+  //   name: apiReturn.title,
+  //   salePrice: apiReturn.price,
+  // };
+  const stylizedObjectItemCart = {
     title: apiReturn.title,
     price: apiReturn.price,
     thumbnail: apiReturn.thumbnail,
   };
 
   // const cartItem = createCartItemElement(objectItemCart);
-  const cartItem = createCartItemStylizedElement(objectItemCart);
-
+  const cartItem = createCartItemStylizedElement(stylizedObjectItemCart);
   cartItems.appendChild(cartItem);
-
   saveCartItems(cartItems.innerHTML);
+  calculateTotalPrice();
 };
 
 const reloadCart = () => {
@@ -179,7 +180,6 @@ const setItemsToCart = () => {
   buttons.forEach((element) => {
   element.addEventListener('click', (event) => {
     addItemToCart((event.target.parentNode.firstChild.innerText));
-    // calculateTotalPrice();
   });
 });
 };
