@@ -6,7 +6,7 @@ const cartItems = document.querySelector('.cart__items');
 const searchProduct = document.querySelector('#searchBar'); 
 const sectionItems = document.querySelector('.items');
 
-const createProductImageElement = (imageSource) => {
+const createProductImageElement = (imageSource, title) => {
   const img = document.createElement('img');
   img.className = 'item__image';
   img.src = imageSource;
@@ -135,7 +135,7 @@ const createCartItemStylizedElement = ({ title, price, thumbnail }) => {
 
   li.className = 'li-stylized';
 
-  li.appendChild(createProductImageElement(thumbnail));
+  li.appendChild(createProductImageElement(thumbnail, title));
   li.appendChild(createCustomElement('p', 'p-name-item-cart', title));
   li.appendChild(createCustomElement('p', 'p-price-item-cart', `R$${price}`));
 
@@ -146,14 +146,14 @@ const createCartItemStylizedElement = ({ title, price, thumbnail }) => {
 const addItemToCart = async (itemId) => {
   const apiReturn = await fetchItem(itemId);
   const objectItemCart = {
-    sku: apiReturn.id,
+    // sku: apiReturn.id,
     title: apiReturn.title,
     price: apiReturn.price,
-    // thumbnail: apiReturn.thumbnail,
+    thumbnail: apiReturn.thumbnail,
   };
-  
-  const cartItem = createCartItemElement(objectItemCart);
-  // const cartItem = createCartItemStylizedElement(objectItemCart);
+
+  // const cartItem = createCartItemElement(objectItemCart);
+  const cartItem = createCartItemStylizedElement(objectItemCart);
 
   cartItems.appendChild(cartItem);
 
