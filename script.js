@@ -6,7 +6,7 @@ const cartItems = document.querySelector('.cart__items');
 const searchProduct = document.querySelector('#searchBar'); 
 const sectionItems = document.querySelector('.items');
 
-const createProductImageElement = (imageSource, title) => {
+const createProductImageElement = (imageSource) => {
   const img = document.createElement('img');
   img.className = 'item__image';
   img.src = imageSource;
@@ -135,7 +135,7 @@ const createCartItemStylizedElement = ({ title, price, thumbnail }) => {
 
   li.className = 'li-stylized';
 
-  li.appendChild(createProductImageElement(thumbnail, title));
+  li.appendChild(createProductImageElement(thumbnail));
   li.appendChild(createCustomElement('p', 'p-name-item-cart', title));
   li.appendChild(createCustomElement('p', 'p-price-item-cart', `R$${price}`));
 
