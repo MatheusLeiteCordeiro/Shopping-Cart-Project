@@ -23,7 +23,7 @@ const createCustomElement = (element, className, innerText) => {
 const createProductItemElement = ({ sku, name, image, price }) => {
   const section = document.createElement('section');
   section.className = 'item';
-
+  
   section.appendChild(createCustomElement('span', 'item__sku', sku));
   section.appendChild(createProductImageElement(image));
   section.appendChild(createCustomElement('span', 'item__title', name));
@@ -33,34 +33,18 @@ const createProductItemElement = ({ sku, name, image, price }) => {
   return section;
 };
 
-const calculateTotalPrice = () => {
-  const totalPrice = document.querySelector('.total-price');
-  const items = document.querySelectorAll('.cart__item');
-
-  valorInicialPrice = 0;
-
-  items.forEach(async (element) => {
-    const cartItemData = await fetchItem(element.lastChild.innerText);
-    const { price } = cartItemData;
-
-    // totalPrice.innerHTML = valorTotalPrice;
-
-      // console.log(price);
-  });
-};
-
 const showLoading = (section) => {
   const loadingTextElement = document.createElement('p');
-
+  
   loadingTextElement.classList.add('loading');
   loadingTextElement.innerText = 'carregando...';
-
+  
   section.appendChild(loadingTextElement);
 };
 
 const deleteLoading = () => {
   const loadingTextElement = document.querySelector('.loading');
-
+  
   loadingTextElement.remove();
 };
 
@@ -73,34 +57,34 @@ const mapFetchItems = (arrayResults) => {
 };
 
 const createProductListing = async () => {
-    showLoading(sectionItems);
-
+  showLoading(sectionItems);
+  
     const apiReturn = await fetchProducts('computador');
     const arrayResults = apiReturn.results;
 
     mapFetchItems(arrayResults);
 
     deleteLoading();
-};
-
-const searchCreateProductListing = async () => {
-  // showLoading(sectionItems);
-
-  if (sectionItems.childElementCount > 0) {
-    sectionItems.innerHTML = '';
-  }
-
+  };
+  
+  const searchCreateProductListing = async () => {
+    // showLoading(sectionItems);
+    
+    if (sectionItems.childElementCount > 0) {
+      sectionItems.innerHTML = '';
+    }
+    
   const apiReturn = await fetchProducts(searchProduct.value);
   const arrayResults = apiReturn.results;
-
+  
   mapFetchItems(arrayResults);
-
+  
   // deleteLoading();
 };
 
 const search = () => {
   const searchbutton = document.querySelector('#search-button'); 
-
+  
   searchbutton.addEventListener('click', () => {
     searchCreateProductListing();
     searchProduct.value = '';
@@ -109,71 +93,85 @@ const search = () => {
 
 // const getSkuFromProductItem = (item) => item.querySelector('span.item__sku').innerText;
 
+const calculatesPrices = () => {
+  const totalPrice = document.querySelector('.total-price');
+  const cartItem = document.querySelectorAll('.cart__item');
+  const arrayPrices = [];
+
+  cartItem.forEach((item) => {
+    const array = item.textContent.split('$');
+    arrayPrices.push(parseFloat(array[1]));
+  });
+
+  const somaPrices = arrayPrices.reduce((acc, curr) => acc + curr, 0);
+  totalPrice.innerHTML = `${somaPrices}`;
+};
+
 const cartItemClickListener = (event) => {
   // coloque seu código aqui
-    event.target.remove();
-    saveCartItems(cartItems.innerHTML);
+  event.target.remove();
+  saveCartItems(cartItems.innerHTML);
+  calculatesPrices();
 };
 
 const createCartItemElement = ({ sku, name, salePrice }) => {
   const li = document.createElement('li');
   const textP = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
 
-  // li.appendChild(createCustomElement('p', 'pItemCart', textP));
   li.innerText = textP;
-  li.appendChild(createCustomElement('span', 'cartItemSpan', sku));
   li.className = 'cart__item';
   li.addEventListener('click', cartItemClickListener);
   return li;
 };
 
-const createCartItemStylizedElement = ({ title, price, thumbnail }) => {
-  const li = document.createElement('li');
+// const createCartItemStylizedElement = ({ title, price, thumbnail }) => {
+//   const li = document.createElement('li');
+//   const removebutton = document.createElement('img');
 
-  li.className = 'li-stylized';
+//   removebutton.src = './remove.png';
+//   removebutton.className = 'remove-button';
+//   li.className = 'li-stylized';
 
-  li.appendChild(createProductImageElement(thumbnail));
-  li.appendChild(createCustomElement('p', 'p-name-item-cart', title));
-  li.appendChild(createCustomElement('p', 'p-price-item-cart', `R$${price}`));
+//   li.appendChild(createProductImageElement(thumbnail));
+//   li.appendChild(createCustomElement('p', 'p-name-item-cart', title));
+//   li.appendChild(createCustomElement('p', 'p-price-item-cart', `R$${price}`));
+//   li.appendChild(removebutton);
 
-  li.addEventListener('click', cartItemClickListener);
-  return li;
-};
+//   li.addEventListener('click', cartItemClickListener);
+//   return li;
+// };
 
 const addItemToCart = async (itemId) => {
   const apiReturn = await fetchItem(itemId);
 
-  // const objectItemCart = {
-  //   sku: apiReturn.id,
-  //   name: apiReturn.title,
-  //   salePrice: apiReturn.price,
-  // };
-  const stylizedObjectItemCart = {
-    title: apiReturn.title,
-    price: apiReturn.price,
-    thumbnail: apiReturn.thumbnail,
+  const objectItemCart = { sku: apiReturn.id, name: apiReturn.title, salePrice: apiReturn.price,
   };
+  // const stylizedObjectItemCart = {
+  //   title: apiReturn.title,
+  //   price: apiReturn.price,
+  //   thumbnail: apiReturn.thumbnail,
+  // };
 
-  // const cartItem = createCartItemElement(objectItemCart);
-  const cartItem = createCartItemStylizedElement(stylizedObjectItemCart);
+  const cartItem = createCartItemElement(objectItemCart);
+  // const cartItem = createCartItemStylizedElement(stylizedObjectItemCart);
   cartItems.appendChild(cartItem);
   saveCartItems(cartItems.innerHTML);
-  calculateTotalPrice();
+  calculatesPrices();
 };
 
 const reloadCart = () => {
     cartItems.innerHTML = getSavedCartItems();
 
     const item = document.querySelectorAll('.cart__item');
-
+    
     item.forEach((element) => {
       element.addEventListener('click', cartItemClickListener);
-      // calculateTotalPrice();
-    });
+    });  
 };
 
 const setItemsToCart = () => {
   reloadCart();
+  calculatesPrices();
 
   const buttons = document.querySelectorAll('.item__add');
 
@@ -190,7 +188,7 @@ const emptyCart = () => {
   emptyCartButton.addEventListener('click', () => {
     cartItems.innerHTML = '';
     saveCartItems(cartItems.innerHTML);
-    // calculateTotalPrice();
+    calculatesPrices();
   });
 };
 

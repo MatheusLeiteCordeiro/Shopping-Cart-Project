@@ -100,9 +100,9 @@ body {
   height: auto;
   margin: 15px;
   width: 220px;
-  box-shadow: 0 0.15rem 2rem 0 rgba(58, 59, 69, 0.076);
+  box-shadow: 0 0.15rem 2rem 0 rgba(191, 215, 191, 0.58);
   box-sizing: border-box;
-  background-color: white;
+  background-color: rgb(246, 246, 246);
   border-radius: 12px;
 }
 
@@ -129,14 +129,15 @@ body {
 }
 
 .item .item__add {
-  background-color: #8911ad;
+
+  /* background-color: #8911ad; */
   border: 0;
   cursor: pointer;
   margin: 10px;
   padding: 12px;
   color: white;
   border-radius: 10px;
-  box-shadow: 0 0.1rem 2rem 0 rgba(134, 140, 204, 0.509);
+  box-shadow: 0 0.15rem 2rem 0 rgb(254, 254, 254);
 }
 
 .cart {
@@ -176,7 +177,7 @@ body {
   width: 500px;
   height: 50px;
   border: 0;
-  box-shadow: 0 0.15rem 2rem 0 rgba(58, 59, 69, 0.079);
+  box-shadow: 0 0.15rem 2rem 0 rgb(216 244 216 / 65%);
   font-family: inherit;
   font-size: 17px;
 }
@@ -186,13 +187,14 @@ body {
   width: 60px;
   height: 50px;
   border: 0;
-  box-shadow: 0 0.15rem 2rem 0 rgba(58, 59, 69, 0.079);
+  box-shadow: 0 0.15rem 2rem 0 rgb(216 244 216 / 65%);
 }
 
 .item__price {
   font-family: Impact, Haettenschweiler, sans-serif;
   text-indent: 2px;
-  font-weight: bolder;
+
+  /* font-weight: bolder; */
   padding: 5px;
   color: rgba(0, 0, 0, 0.748);
   font-size: 20px;
@@ -212,7 +214,8 @@ body {
 .total-price {
   font-family: Impact, Haettenschweiler, sans-serif;
   text-indent: 2px;
-  font-weight: bolder;
+
+  /* font-weight: bolder; */
   color: rgba(0, 0, 0, 0.748);
   font-size: 27px;
   margin-top: 17px;
@@ -228,9 +231,9 @@ body {
   align-items: center;
 }
 
-.item__image {
+/* .item__image {
   border-radius: 30px;
-}
+} */
 
 .p-name-item-cart {
   padding: 10px;
@@ -248,4 +251,9 @@ body {
   color: rgba(102, 193, 5, 0.728);
   font-size: 15px;
   align-self: center;
+}
+
+.remove-button {
+  margin-left: 14%;
+  width: 3%;
 }
