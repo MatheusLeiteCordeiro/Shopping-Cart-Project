@@ -67,9 +67,7 @@ const createProductListing = async () => {
     deleteLoading();
   };
   
-  const searchCreateProductListing = async () => {
-    // showLoading(sectionItems);
-    
+  const searchCreateProductListing = async () => {    
     if (sectionItems.childElementCount > 0) {
       sectionItems.innerHTML = '';
     }
@@ -78,8 +76,6 @@ const createProductListing = async () => {
   const arrayResults = apiReturn.results;
   
   mapFetchItems(arrayResults);
-  
-  // deleteLoading();
 };
 
 const search = () => {
@@ -93,77 +89,93 @@ const search = () => {
 
 // const getSkuFromProductItem = (item) => item.querySelector('span.item__sku').innerText;
 
-const calculatesPrices = () => {
+// const calculatesPrices = () => {
+//   const totalPrice = document.querySelector('.total-price');
+//   const cartItem = document.querySelectorAll('.cart__item');
+//   const arrayPrices = [];
+
+//   cartItem.forEach((item) => {
+//     const array = item.textContent.split('$');
+//     arrayPrices.push(parseFloat(array[1]));
+//   });
+
+//   const somaPrices = arrayPrices.reduce((acc, curr) => acc + curr, 0);
+//   totalPrice.innerHTML = `R$ ${somaPrices}`;
+// };
+
+const calculatesStylizedPrices = () => {
   const totalPrice = document.querySelector('.total-price');
-  const cartItem = document.querySelectorAll('.cart__item');
+  const cartItem = document.querySelectorAll('.li-stylized');
   const arrayPrices = [];
 
   cartItem.forEach((item) => {
     const array = item.textContent.split('$');
     arrayPrices.push(parseFloat(array[1]));
   });
-
   const somaPrices = arrayPrices.reduce((acc, curr) => acc + curr, 0);
-  totalPrice.innerHTML = `${somaPrices}`;
+  totalPrice.innerHTML = `R$ ${somaPrices.toFixed(2)}`;
 };
 
 const cartItemClickListener = (event) => {
   // coloque seu código aqui
-  event.target.remove();
+  // event.target.remove();
+  event.target.parentNode.remove();
   saveCartItems(cartItems.innerHTML);
-  calculatesPrices();
+  calculatesStylizedPrices();
 };
 
-const createCartItemElement = ({ sku, name, salePrice }) => {
-  const li = document.createElement('li');
-  const textP = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
-
-  li.innerText = textP;
-  li.className = 'cart__item';
-  li.addEventListener('click', cartItemClickListener);
-  return li;
-};
-
-// const createCartItemStylizedElement = ({ title, price, thumbnail }) => {
+// const createCartItemElement = ({ sku, name, salePrice }) => {
 //   const li = document.createElement('li');
-//   const removebutton = document.createElement('img');
+//   const textP = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
 
-//   removebutton.src = './remove.png';
-//   removebutton.className = 'remove-button';
-//   li.className = 'li-stylized';
-
-//   li.appendChild(createProductImageElement(thumbnail));
-//   li.appendChild(createCustomElement('p', 'p-name-item-cart', title));
-//   li.appendChild(createCustomElement('p', 'p-price-item-cart', `R$${price}`));
-//   li.appendChild(removebutton);
-
+//   li.innerText = textP;
+//   li.className = 'cart__item';
 //   li.addEventListener('click', cartItemClickListener);
 //   return li;
 // };
 
+const createCartItemStylizedElement = ({ title, price, thumbnail }) => {
+  const li = document.createElement('li');
+  const removebutton = document.createElement('img');
+
+  removebutton.src = './remove.png';
+  removebutton.className = 'remove-button';
+  li.className = 'li-stylized';
+
+  li.appendChild(createProductImageElement(thumbnail));
+  li.appendChild(createCustomElement('p', 'p-name-item-cart', title));
+  li.appendChild(createCustomElement('p', 'p-price-item-cart', `R$${price}`));
+  li.appendChild(removebutton);
+
+  removebutton.addEventListener('click', cartItemClickListener);
+  return li;
+};
+
 const addItemToCart = async (itemId) => {
   const apiReturn = await fetchItem(itemId);
 
-  const objectItemCart = { sku: apiReturn.id, name: apiReturn.title, salePrice: apiReturn.price,
-  };
-  // const stylizedObjectItemCart = {
-  //   title: apiReturn.title,
-  //   price: apiReturn.price,
-  //   thumbnail: apiReturn.thumbnail,
+  // const objectItemCart = { sku: apiReturn.id, name: apiReturn.title, salePrice: apiReturn.price,
   // };
+  const stylizedObjectItemCart = {
+    title: apiReturn.title,
+    price: apiReturn.price,
+    thumbnail: apiReturn.thumbnail,
+  };
 
-  const cartItem = createCartItemElement(objectItemCart);
-  // const cartItem = createCartItemStylizedElement(stylizedObjectItemCart);
+  // const cartItem = createCartItemElement(objectItemCart);
+  const cartItem = createCartItemStylizedElement(stylizedObjectItemCart);
   cartItems.appendChild(cartItem);
   saveCartItems(cartItems.innerHTML);
-  calculatesPrices();
+  // calculatesPrices();
+  calculatesStylizedPrices();
 };
 
 const reloadCart = () => {
     cartItems.innerHTML = getSavedCartItems();
 
-    const item = document.querySelectorAll('.cart__item');
-    
+    // const item = document.querySelectorAll('.cart__item');
+    const item = document.querySelectorAll('.remove-button');
+
     item.forEach((element) => {
       element.addEventListener('click', cartItemClickListener);
     });  
@@ -171,7 +183,8 @@ const reloadCart = () => {
 
 const setItemsToCart = () => {
   reloadCart();
-  calculatesPrices();
+  // calculatesPrices();
+  calculatesStylizedPrices();
 
   const buttons = document.querySelectorAll('.item__add');
 
@@ -188,13 +201,14 @@ const emptyCart = () => {
   emptyCartButton.addEventListener('click', () => {
     cartItems.innerHTML = '';
     saveCartItems(cartItems.innerHTML);
-    calculatesPrices();
+    // calculatesPrices();
+    calculatesStylizedPrices();
   });
 };
 
 window.onload = async () => { 
     await createProductListing();
-    search();
     setItemsToCart();
+    search();
     emptyCart();
 };
