@@ -76,6 +76,7 @@ const createProductListing = async () => {
   const arrayResults = apiReturn.results;
   
   mapFetchItems(arrayResults);
+  setItemsToCart();
 };
 
 const search = () => {
