@@ -138,6 +138,7 @@ const setItemsToCart = () => {
 };
 
 const searchCreateProductListing = async () => {    
+
   if (sectionItems.childElementCount > 0) {
     sectionItems.innerHTML = '';
   }
@@ -164,7 +165,6 @@ const emptyCart = () => {
   emptyCartButton.addEventListener('click', () => {
     cartItems.innerHTML = '';
     saveCartItems(cartItems.innerHTML);
-    // calculatesPrices();
     calculatesStylizedPrices();
   });
 };
