@@ -44,6 +44,7 @@
 
 - Para execução da aplicação, baixe a extensão `LiveServer`, no `VSCode`, vá até o arquivo "index.html", clique-o com o botão direito do mouse e então clique em "Open With Live Server".
 
-#### Segue um Gif com uma ilustração da execução da aplicação:
+Segue um Gif com uma ilustração da execução da aplicação:
     
+
 ![Project Gif](./executando-projeto.gif)
