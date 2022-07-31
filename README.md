@@ -29,12 +29,12 @@
 
 ### Dependências
 
-- #### Para utilizar a biblioteca de testes Jest, será necessário utilizar o gerenciador de pacotes NPM. Portanto, instale o NPM e, após a clonagem do repositório, execute o comando: `npm install`.
+- Para utilizar a biblioteca de testes Jest, será necessário utilizar o gerenciador de pacotes NPM. Portanto, instale o NPM e, após a clonagem do repositório, execute o comando: `npm install`.
 
 ### Testes
 
-- #### Para execução  dos tests, basta executar o comando: `npm test`. Assim, serão realizados testes em todos os arquivos de testes. 
-- ##### Caso queira realizar o teste de uma função específica, execute o comando `npm test nome-da-função`.
+- Para execução  dos tests, basta executar o comando: `npm test`. Assim, serão realizados testes em todos os arquivos de testes. 
+- Caso queira realizar o teste de uma função específica, execute o comando `npm test nome-da-função`.
 
 
       Todos os arquivos de testes estão dentro da pasta "tests"
@@ -42,7 +42,7 @@
 
 ### Aplicação
 
-- #### Para execução da aplicação, baixe a extensão `LiveServer`, no `VSCode`, vá até o arquivo "index.html", clique-o com o botão direito do mouse e então clique em "Open With Live Server".
+- Para execução da aplicação, baixe a extensão `LiveServer`, no `VSCode`, vá até o arquivo "index.html", clique-o com o botão direito do mouse e então clique em "Open With Live Server".
 
 #### Segue um Gif com uma ilustração da execução da aplicação:
     
