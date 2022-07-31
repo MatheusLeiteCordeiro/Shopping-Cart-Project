@@ -1,4 +1,4 @@
-# Este é um projeto desenvolvido por [Matheus Emanuel](https://www.linkedin.com/in/matheus-emanuel-1a77b1221/), durante o período que cursou Desenvolvimento de Software na [Trybe](https://www.betrybe.com/), sendo o último projeto avaliativo do módulo de Fundamentos do Desenvolvimento Web.
+## Este é um projeto desenvolvido por [Matheus Emanuel](https://www.linkedin.com/in/matheus-emanuel-1a77b1221/), durante o período que cursou Desenvolvimento de Software na [Trybe](https://www.betrybe.com/), sendo o último projeto avaliativo do módulo de Fundamentos do Desenvolvimento Web.
 
 ##### A Trybe possui autoria nesse projeto quanto a criação das funções mockadas presentes na pasta "mocks".
 
@@ -29,11 +29,11 @@
 
 ### Dependências
 
-- ##### Para utilizar a biblioteca de testes Jest, será necessário utilizar o gerenciador de pacotes NPM. Portanto, instale o NPM e, após a clonagem do repositório, execute o comando: `npm install`.
+- #### Para utilizar a biblioteca de testes Jest, será necessário utilizar o gerenciador de pacotes NPM. Portanto, instale o NPM e, após a clonagem do repositório, execute o comando: `npm install`.
 
 ### Testes
 
-- ##### Para execução  dos tests, basta executar o comando: `npm test`. Assim, serão realizados testes em todos os arquivos de testes. 
+- #### Para execução  dos tests, basta executar o comando: `npm test`. Assim, serão realizados testes em todos os arquivos de testes. 
 - ##### Caso queira realizar o teste de uma função específica, execute o comando `npm test nome-da-função`.
 
 
@@ -42,8 +42,8 @@
 
 ### Aplicação
 
-- ##### Para execução da aplicação, baixe a extensão `LiveServer`, no `VSCode`, vá até o arquivo "index.html", clique-o com o botão direito do mouse e então clique em "Open With Live Server".
+- #### Para execução da aplicação, baixe a extensão `LiveServer`, no `VSCode`, vá até o arquivo "index.html", clique-o com o botão direito do mouse e então clique em "Open With Live Server".
 
-##### Segue um Gif com uma ilustração da execução da aplicação:
+#### Segue um Gif com uma ilustração da execução da aplicação:
     
 ![Project Gif](./executando-projeto.gif)
