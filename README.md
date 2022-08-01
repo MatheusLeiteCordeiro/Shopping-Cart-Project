@@ -34,7 +34,7 @@
 ### Testes
 
 - Para execução  dos tests, basta executar o comando: `npm test`. Assim, serão realizados testes em todos os arquivos de testes. 
-- Caso queira realizar o teste de uma função específica, execute o comando `npm test nome-da-função`.
+- Caso queira realizar o teste de uma função específica, execute o comando `npm test nome-do-arquivo-de-teste`.
 
 
       Todos os arquivos de testes estão dentro da pasta "tests"
@@ -46,5 +46,4 @@
 
 Segue um Gif com uma ilustração da execução da aplicação:
     
-
 ![Project Gif](./executando-projeto.gif)
